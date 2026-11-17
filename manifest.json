@@ -1,0 +1,18 @@
+{
+  "name": "Laboratorio Ohm - Decifratore Resistori",
+  "short_name": "Lab Ohm",
+  "description": "Decodificatore bidirezionale di resistenze a 4 e 5 bande con serie E12/E24.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#2c251d",
+  "theme_color": "#3b5238",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

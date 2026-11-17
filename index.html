@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#3b5238">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>LABORATORIO OHM // Decodificatore Resistori Mod. 1968</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
+  <link rel="apple-touch-icon" href="icon.svg">
+  <link href="https://googleapis.com" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="vintage-sheet">
+    <div class="sheet-stamp">MOD. R-68 // BREVETTO N. 4092</div>
+
+    <header>
+      <h1>DECIFRATORE DI RESISTENZE</h1>
+      <p class="subtitle">MANUALE TECNICO DA BANCO &bull; LETTURA DIRETTA E INVERSA</p>
+    </header>
+
+    <div class="mode-switch">
+      <button class="mode-btn active" id="btn-4band" onclick="setBands(4)">TIPO A: 4 BANDE</button>
+      <button class="mode-btn" id="btn-5band" onclick="setBands(5)">TIPO B: 5 BANDE</button>
+    </div>
+
+    <div class="resistor-stage">
+      <div class="wire"></div>
+      <div class="resistor-body">
+        <div class="band" id="vis-b1" title="1ª Cifra"></div>
+        <div class="band" id="vis-b2" title="2ª Cifra"></div>
+        <div class="band" id="vis-b3" style="display: none;" title="3ª Cifra"></div>
+        <div class="band" id="vis-mult" title="Moltiplicatore"></div>
+        <div class="band tolerance-band" id="vis-tol" title="Tolleranza"></div>
+      </div>
+      <div class="wire"></div>
+    </div>
+
+    <div class="result-box">
+      <div class="result-label">LETTURA STRUMENTO</div>
+      <div class="result-value" id="output-val">1 kΩ ±5%</div>
+      <div class="result-range" id="output-range">Tolleranza ammessa: 950 Ω — 1.05 kΩ</div>
+    </div>
+
+    <div class="panel-box">
+      <div class="section-title">I. RICERCA INVERSA E VALORI COMMERCIALI (SERIE E12 / E24)</div>
+      <div class="reverse-controls">
+        <input type="number" id="rev-input" placeholder="Valore (es. 4.7)" step="any" min="0">
+        <select id="rev-unit" title="Unità di misura">
+          <option value="1">Ω (Ohm)</option>
+          <option value="1000" selected>kΩ (Kilo)</option>
+          <option value="1000000">MΩ (Mega)</option>
+        </select>
+        <select id="rev-series" title="Serie standard">
+          <option value="exact">Calcolo Esatto</option>
+          <option value="E12">Serie E12 (10%)</option>
+          <option value="E24" selected>Serie E24 (5%)</option>
+        </select>
+        <button class="action-btn" onclick="handleReverseSearch()">CALCOLA BANDE</button>
+      </div>
+      <div class="reverse-feedback" id="rev-feedback"></div>
+    </div>
+
+    <div class="panel-box">
+      <div class="section-title">II. REGOLAZIONE MANUALE SELETTORI</div>
+      <div class="controls-grid">
+        <div class="control-group">
+          <label for="sel-b1">1ª BANDA (Cifra)</label>
+          <select id="sel-b1" onchange="updateApp()"></select>
+        </div>
+
+        <div class="control-group">
+          <label for="sel-b2">2ª BANDA (Cifra)</label>
+          <select id="sel-b2" onchange="updateApp()"></select>
+        </div>
+
+        <div class="control-group" id="group-b3" style="display: none;">
+          <label for="sel-b3">3ª BANDA (Cifra)</label>
+          <select id="sel-b3" onchange="updateApp()"></select>
+        </div>
+
+        <div class="control-group">
+          <label for="sel-mult">MOLTIPLICATORE</label>
+          <select id="sel-mult" onchange="updateApp()"></select>
+        </div>
+
+        <div class="control-group">
+          <label for="sel-tol">TOLLERANZA</label>
+          <select id="sel-tol" onchange="updateApp()"></select>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel-box">
+      <div class="section-title">III. TABELLA CODICE COLORI (CLICCA UN VALORE PER IMPOSTARLO)</div>
+      <div class="table-wrapper">
+        <table class="color-table">
+          <thead>
+            <tr>
+              <th>Colore</th>
+              <th>1ª Cifra</th>
+              <th>2ª Cifra</th>
+              <th id="th-b3" style="display: none;">3ª Cifra</th>
+              <th>Moltiplicatore</th>
+              <th>Tolleranza</th>
+            </tr>
+          </thead>
+          <tbody id="color-table-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="math.js"></script>
+  <script src="ui.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
