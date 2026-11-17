@@ -14,6 +14,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -70,6 +71,7 @@ h1 {
   letter-spacing: 2px;
   color: var(--ink-main);
   margin-bottom: 6px;
+  line-height: 1.2;
 }
 
 .subtitle {
@@ -93,7 +95,7 @@ h1 {
   font-family: 'Courier Prime', monospace;
   font-weight: 700;
   font-size: 0.9rem;
-  padding: 8px 18px;
+  padding: 10px 18px;
   cursor: pointer;
   box-shadow: 3px 3px 0px var(--border-ink);
   transition: transform 0.1s ease, box-shadow 0.1s ease;
@@ -200,6 +202,7 @@ h1 {
   border-bottom: 1px dashed var(--border-ink);
   padding-bottom: 6px;
   margin-bottom: 12px;
+  line-height: 1.3;
 }
 
 .reverse-controls {
@@ -212,16 +215,18 @@ input[type="number"], select {
   background-color: #fbf7ef;
   color: var(--ink-main);
   border: 1.5px solid var(--border-ink);
-  padding: 9px 10px;
+  padding: 10px;
   font-family: 'Courier Prime', monospace;
-  font-size: 0.92rem;
+  font-size: 0.95rem;
   font-weight: 700;
   outline: none;
+  border-radius: 2px;
+  min-height: 42px;
 }
 
 input[type="number"] {
   flex: 1;
-  min-width: 130px;
+  min-width: 120px;
 }
 
 input:focus, select:focus {
@@ -233,12 +238,13 @@ input:focus, select:focus {
   background-color: var(--accent-rust);
   color: #fbf7ef;
   border: 2px solid var(--border-ink);
-  padding: 9px 16px;
+  padding: 10px 16px;
   font-family: 'Courier Prime', monospace;
   font-weight: 700;
-  font-size: 0.9rem;
+  font-size: 0.92rem;
   cursor: pointer;
   box-shadow: 2px 2px 0px var(--border-ink);
+  min-height: 42px;
 }
 
 .action-btn:hover {
@@ -256,6 +262,7 @@ input:focus, select:focus {
   font-weight: 700;
   color: var(--accent-olive);
   min-height: 18px;
+  line-height: 1.35;
 }
 
 .controls-grid {
@@ -278,6 +285,7 @@ input:focus, select:focus {
 
 .table-wrapper {
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .color-table {
@@ -289,7 +297,7 @@ input:focus, select:focus {
 
 .color-table th, .color-table td {
   border: 1px solid var(--border-ink);
-  padding: 7px 6px;
+  padding: 8px 6px;
 }
 
 .color-table th {
@@ -319,7 +327,7 @@ input:focus, select:focus {
   transition: background-color 0.15s ease;
 }
 
-.clickable-cell:hover {
+.clickable-cell:hover, .clickable-cell:active {
   background-color: var(--accent-brass);
   color: #fff;
   font-weight: 700;
@@ -330,11 +338,157 @@ input:focus, select:focus {
   background-color: rgba(0, 0, 0, 0.04);
 }
 
-@media (max-width: 560px) {
-  .resistor-body { width: 215px; height: 64px; padding: 0 14px; }
-  .band { width: 13px; }
-  .band.tolerance-band { margin-left: 10px; }
-  .wire { width: 35px; }
-  h1 { font-size: 1.45rem; }
-  .result-value { font-size: 1.65rem; }
+/* =========================================
+   OTTIMIZZAZIONE MOBILE / SMARTPHONE
+   ========================================= */
+@media (max-width: 600px) {
+  body {
+    padding: 8px;
+  }
+
+  .vintage-sheet {
+    padding: 16px 12px;
+    border-width: 2px;
+  }
+
+  .sheet-stamp {
+    position: static;
+    display: inline-block;
+    margin-bottom: 10px;
+    font-size: 0.68rem;
+    transform: none;
+  }
+
+  header {
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+  }
+
+  h1 {
+    font-size: 1.45rem;
+    letter-spacing: 1px;
+  }
+
+  .subtitle {
+    font-size: 0.75rem;
+  }
+
+  .mode-switch {
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .mode-btn {
+    flex: 1;
+    padding: 10px 8px;
+    font-size: 0.82rem;
+  }
+
+  .resistor-stage {
+    padding: 20px 8px;
+    margin-bottom: 16px;
+  }
+
+  .wire {
+    width: 32px;
+    height: 6px;
+  }
+
+  .resistor-body {
+    width: 220px;
+    height: 66px;
+    padding: 0 16px;
+    border-radius: 20px;
+  }
+
+  .band {
+    width: 14px;
+  }
+
+  .band.tolerance-band {
+    margin-left: 12px;
+  }
+
+  .result-box {
+    padding: 14px 10px;
+    margin-bottom: 16px;
+  }
+
+  .result-value {
+    font-size: 1.75rem;
+  }
+
+  .result-range {
+    font-size: 0.8rem;
+  }
+
+  .panel-box {
+    padding: 12px 10px;
+    margin-bottom: 14px;
+  }
+
+  /* Layout ergonomico per la ricerca inversa */
+  .reverse-controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .reverse-controls input[type="number"] {
+    grid-column: 1 / 2;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .reverse-controls #rev-unit {
+    grid-column: 2 / 3;
+    width: 100%;
+  }
+
+  .reverse-controls #rev-series {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+
+  .reverse-controls .action-btn {
+    grid-column: 1 / -1;
+    width: 100%;
+    padding: 12px;
+  }
+
+  /* Griglia selettori a 2 colonne */
+  .controls-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .controls-grid .control-group:last-child {
+    grid-column: 1 / -1;
+  }
+
+  select {
+    width: 100%;
+    font-size: 0.88rem;
+    padding: 8px;
+  }
+
+  /* Tabella compatta per evitare scroll orizzontale */
+  .color-table {
+    font-size: 0.74rem;
+  }
+
+  .color-table th, .color-table td {
+    padding: 7px 3px;
+  }
+
+  .color-swatch-cell {
+    gap: 5px;
+    padding-left: 5px !important;
+  }
+
+  .swatch-dot {
+    width: 12px;
+    height: 12px;
+  }
 }
+
